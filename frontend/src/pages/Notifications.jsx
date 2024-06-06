@@ -9,7 +9,7 @@ const Notifications = () => {
   useEffect(() => {
     // Fetch notifications for the logged-in user
     if (user) {
-      axios.get(`/api/notifications/${user.uid}`)
+      axios.get(`/api/notifications/${user.studentcode}`)
         .then(response => setNotifications(response.data))
         .catch(error => console.error(error));
     }

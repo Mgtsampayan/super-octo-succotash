@@ -1,15 +1,16 @@
 import api from './api';
 
-const getRequestStatus = async (studentId) => {
+// Define the fetchRequests function
+export const fetchRequests = async (fetchReq) => {
   try {
-    const response = await api.get(`/requests/status/${studentId}`);
+    const response = await api.get('/requests', fetchReq);
     return response.data;
   } catch (error) {
-    throw new Error(error.response?.data?.message || 'Failed to get request status');
+    throw new Error(error.response?.data?.message || 'Request fetch failed');
   }
-};
-
-const submitRequest = async (requestData) => {
+}
+// Define the createRequest function
+export const createRequest = async (requestData) => {
   try {
     const response = await api.post('/requests', requestData);
     return response.data;
@@ -18,7 +19,20 @@ const submitRequest = async (requestData) => {
   }
 };
 
+// Define the updateRequest function
+export const updateRequest = async (id, updatedData) => {
+  try {
+    const response = await api.put(`/requests/${id}`, updatedData);
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response?.data?.message || 'Request update failed');
+  }
+};
+
+
+// Export both functions
 export default {
-  getRequestStatus,
-  submitRequest,
+  createRequest,
+  updateRequest,
+  fetchRequests
 };

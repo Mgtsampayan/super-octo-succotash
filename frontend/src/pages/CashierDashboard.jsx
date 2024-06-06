@@ -6,7 +6,6 @@ const CashierDashboard = () => {
     <div>
       <Navbar />
       <h1>Cashier Dashboard</h1>
-      {/* Cashier specific content */}
     </div>
   );
 };

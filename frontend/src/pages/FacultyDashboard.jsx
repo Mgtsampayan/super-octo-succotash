@@ -6,7 +6,6 @@ const FacultyDashboard = () => {
     <div>
       <Navbar />
       <h1>Faculty Dashboard</h1>
-      {/* Faculty specific content */}
     </div>
   );
 };

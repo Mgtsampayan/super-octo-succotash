@@ -10,7 +10,7 @@ const DocumentRequest = () => {
   useEffect(() => {
     // Fetch document requests for the logged-in student
     if (user) {
-      axios.get(`/api/document-requests/${user.uid}`)
+      axios.get(`/api/document-requests/${user.studentcode}`)
         .then(response => setRequests(response.data))
         .catch(error => console.error(error));
     }
@@ -18,7 +18,7 @@ const DocumentRequest = () => {
 
   const handleRequest = () => {
     axios.post('/api/document-requests', {
-      student_id: user.uid,
+      student_id: user.studentcode,
       document_type: documentType,
     }).then(response => {
       setRequests([...requests, response.data]);

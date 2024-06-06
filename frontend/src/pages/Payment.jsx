@@ -9,7 +9,7 @@ const Payment = () => {
   useEffect(() => {
     // Fetch payments for the logged-in student
     if (user) {
-      axios.get(`/api/payments/${user.uid}`)
+      axios.get(`/api/payments/${user.studentcode}`)
         .then(response => setPayments(response.data))
         .catch(error => console.error(error));
     }
