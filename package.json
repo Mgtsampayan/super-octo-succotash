@@ -14,8 +14,13 @@
   "description": "ADRTS",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon backend/server.js"
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "nodemon backend/server.js",
+    "client": "cd frontend && npm start"
   },
   "author": "Gemuel Sampayan",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
 }

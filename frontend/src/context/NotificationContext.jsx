@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect } from 'react';
-import { fetchNotifications } from '../services/notificationService';
+import fetchNotifications, { getNotifications, markAsRead } from '../services/notificationService';
 
 export const NotificationContext = createContext();
 
@@ -13,6 +13,8 @@ export const NotificationProvider = ({ children }) => {
     };
     loadNotifications();
   }, []);
+
+  // You can use getNotifications and markAsRead here as needed
 
   return (
     <NotificationContext.Provider value={{ notifications }}>

@@ -7,7 +7,6 @@ const StudentDashboard = () => {
 
   return (
     <div>
-      <Navbar />
       <h1>Student Dashboard</h1>
       <p>Welcome, {user?.fname} {user?.lname}</p>
     </div>

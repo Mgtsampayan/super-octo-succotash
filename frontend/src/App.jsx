@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/common/Navbar';
 import Home from './pages/Home';
 import Login from './pages/Login';
@@ -29,14 +29,14 @@ const App = () => {
               <Navbar />
               <div className="container">
                 <Routes>
-                  <Route exact path="/" component={Home} />
-                  <Route path="/login" component={Login} />
-                  <Route path="/register" component={Register} />
-                  <PrivateRoute path="/student" component={StudentRoutes} />
-                  <PrivateRoute path="/registrar" component={RegistrarRoutes} />
-                  <PrivateRoute path="/cashier" component={CashierRoutes} />
-                  <PrivateRoute path="/faculty" component={FacultyRoutes} />
-                  <Route component={NotFound} />
+                  <Route path="/" element={<Home />} />
+                  <Route path="/login" element={<Login />} />
+                  <Route path="/register" element={<Register />} />
+                  <Route path="/student/*" element={<PrivateRoute element={<StudentRoutes />} />} />
+                  <Route path="/registrar/*" element={<PrivateRoute element={<RegistrarRoutes />} />} />
+                  <Route path="/cashier/*" element={<PrivateRoute element={<CashierRoutes />} />} />
+                  <Route path="/faculty/*" element={<PrivateRoute element={<FacultyRoutes />} />} />
+                  <Route path="*" element={<NotFound />} />
                 </Routes>
               </div>
             </div>

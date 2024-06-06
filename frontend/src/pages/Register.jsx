@@ -15,7 +15,6 @@ const Register = () => {
 
   return (
     <div>
-      <Navbar />
       <form onSubmit={handleSubmit}>
         <Input
           type="text"

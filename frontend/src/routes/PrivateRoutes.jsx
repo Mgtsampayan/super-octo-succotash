@@ -1,15 +1,10 @@
 import React from 'react';
-import { Route, Navigate } from 'react-router-dom'; // Import Navigate instead of Redirect
+import { Navigate } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
 
-const PrivateRoute = ({ element: Component, ...rest }) => { // Use 'element' instead of 'component'
+const PrivateRoute = ({ element }) => {
   const { user } = useAuth();
-  return (
-    <Route
-      {...rest}
-      element={user ? <Component {...rest} /> : <Navigate to="/login" />} // Use Navigate instead of Redirect
-    />
-  );
+  return user ? element : <Navigate to="/login" />;
 };
 
 export default PrivateRoute;

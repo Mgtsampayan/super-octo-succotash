@@ -23,7 +23,6 @@ const Login = () => {
 
   return (
     <div>
-      <Navbar />
       <form onSubmit={handleSubmit}>
         <Input
           type="text"
