@@ -18,7 +18,17 @@ const markAsRead = async (notificationId) => {
   }
 };
 
+const fetchNotifications = async (fetchNotify) => {
+  try {
+    const response = await api.get('/notifications');
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response?.data?.message || 'Failed to fetch notifications');
+  }
+}
+
 export default {
   getNotifications,
   markAsRead,
+  fetchNotifications,
 };

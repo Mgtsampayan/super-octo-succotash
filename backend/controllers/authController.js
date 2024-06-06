@@ -1,16 +1,36 @@
-const pool = require('../config/db');
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
+const db = require('../utils/db');
+const { hashPassword, comparePassword } = require('../utils/hashPassword');
+const { generateToken } = require('../utils/jwtUtils');
 
-exports.login = async (req, res) => {
-    const { username, password } = req.body;
-    const [user] = await pool.query('SELECT * FROM users WHERE username = ?', [username]);
+exports.register = (req, res) => {
+    const { studentcode, password, cpassword } = req.body;
+    if (password !== cpassword) return res.status(400).json({ error: 'Passwords do not match' });
 
-    if (user.length === 0) return res.status(400).json({ message: 'Invalid credentials' });
+    const hashedPassword = hashPassword(password);
+    const query = 'INSERT INTO students (studentcode, password) VALUES (?,?)';
+    db.execute(query, [studentcode, hashedPassword], (err, result) => {
+        if (err) return res.status(500).json({ error: 'Database error' });
+        res.status(201).json({ message: 'User registered successfully' });
+    });
+};
 
-    const validPassword = await bcrypt.compare(password, user[0].password);
-    if (!validPassword) return res.status(400).json({ message: 'Invalid credentials' });
+exports.login = (req, res) => {
+    const { studentcode, password } = req.body;
+    const query = 'SELECT * FROM students WHERE studentcode = ?';
+    db.execute(query, [studentcode], (err, results) => {
+        if (err) return res.status(500).json({ error: 'Database error' });
+        if (results.length === 0) return res.status(400).json({ error: 'User not found' });
 
-    const token = jwt.sign({ userId: user[0].id, role: user[0].role }, process.env.JWT_SECRET, { expiresIn: '1h' });
-    res.json({ token });
+        const user = results[0];
+        const isPasswordValid = comparePassword(password, user.password);
+        if (!isPasswordValid) return res.status(400).json({ error: 'Invalid password' });
+
+        const token = generateToken(user);
+        res.status(200).json({ token });
+    });
+};
+
+exports.logout = (req, res) => {
+    // Handle logout if needed (usually done on the client-side by deleting the token)
+    res.status(200).json({ message: 'Logged out successfully' });
 };

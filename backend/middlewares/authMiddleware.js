@@ -1,19 +1,16 @@
-const jwt = require('jsonwebtoken');
-require('dotenv').config();
+const { verifyToken } = require('../utils/jwtUtils');
 
 const authMiddleware = (req, res, next) => {
-    const token = req.header('Authorization').replace('Bearer ', '');
-    if (!token) {
-        return res.status(401).json({ message: 'No token, authorization denied' });
-    }
+    const token = req.headers['authorization'];
+    if (!token) return res.status(401).json({ error: 'No token provided' });
 
     try {
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        req.user = decoded;
+        const decoded = verifyToken(token);
+        req.userId = decoded.id;
         next();
-    } catch (error) {
-        res.status(401).json({ message: 'Token is not valid' });
+    } catch (err) {
+        return res.status(401).json({ error: 'Invalid token' });
     }
 };
 
-module.exports = { authMiddleware };
+module.exports = authMiddleware;

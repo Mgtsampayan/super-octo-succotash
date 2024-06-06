@@ -1,15 +1,18 @@
-const app = require('./app');
-const pool = require('./config/db');
+const express = require('express');
+const bodyParser = require('body-parser');
+const authRoutes = require('./routes/authRoutes');
+const studentRoutes = require('./routes/studentRoutes');
+const requestRoutes = require('./routes/requestRoutes');
+const notificationRoutes = require('./routes/notificationRoutes');
+const { errorMiddleware } = require('./middlewares/errorMiddleware');
 
-const port = process.env.PORT || 5000;
+const app = express();
+app.use(bodyParser.json());
+app.use('/api/auth', authRoutes);
+app.use('/api/students', studentRoutes);
+app.use('/api/requests', requestRoutes);
+app.use('/api/notifications', notificationRoutes);
+app.use(errorMiddleware);
 
-pool.getConnection()
-  .then(() => {
-    console.log('Connected to the database');
-    app.listen(port, () => {
-      console.log(`Server is running on port ${port}`);
-    });
-  })
-  .catch(err => {
-    console.error('Failed to connect to the database', err);
-  });
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
