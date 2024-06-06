@@ -1,5 +1,6 @@
 import React from 'react';
-import { Route, Redirect } from 'react-router-dom';
+import { Route } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
 
 const FacultyRoutes = ({ component: Component, ...rest }) => {
@@ -7,13 +8,7 @@ const FacultyRoutes = ({ component: Component, ...rest }) => {
   return (
     <Route
       {...rest}
-      render={props =>
-        user && user.role === 'faculty' ? (
-          <Component {...props} />
-        ) : (
-          <Redirect to="/login" />
-        )
-      }
+      element={user && user.role === 'faculty' ? <Component /> : <Navigate to="/login" />}
     />
   );
 };

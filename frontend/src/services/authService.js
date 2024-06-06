@@ -26,8 +26,13 @@ const logout = async () => {
   }
 };
 
-export default {
-  login,
-  register,
-  logout,
+const getCurrentUser = async () => {
+  try {
+    const response = await api.get('/auth/current-user');
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response?.data?.message || 'Logout failed');
+  }
 };
+
+export { login, register, logout, getCurrentUser };

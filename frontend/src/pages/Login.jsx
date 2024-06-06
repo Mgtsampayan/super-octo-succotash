@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
 import Navbar from '../components/common/Navbar';
 import Input from '../components/common/Input';
@@ -9,8 +9,8 @@ const Login = () => {
   const [studentCode, setStudentCode] = useState('');
   const [password, setPassword] = useState('');
   const { loginUser } = useAuth();
-  const history = useHistory();
-
+  const history = useNavigate();
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {

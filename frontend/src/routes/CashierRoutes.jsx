@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Redirect } from 'react-router-dom';
+import { Route, Navigate } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
 
 const CashierRoutes = ({ component: Component, ...rest }) => {
@@ -7,13 +7,7 @@ const CashierRoutes = ({ component: Component, ...rest }) => {
   return (
     <Route
       {...rest}
-      render={props =>
-        user && user.role === 'cashier' ? (
-          <Component {...props} />
-        ) : (
-          <Redirect to="/login" />
-        )
-      }
+      element={user && user.role === 'cashier' ? <Component /> : <Navigate to="/login" />}
     />
   );
 };

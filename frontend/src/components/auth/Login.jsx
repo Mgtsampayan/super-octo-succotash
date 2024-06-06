@@ -41,7 +41,7 @@
 
 
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import authService from '../../services/authService';
 import Input from '../common/Input';
 import Button from '../common/Button';
@@ -50,7 +50,7 @@ const Login = () => {
   const [studentcode, setStudentcode] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const history = useHistory();
+  const history = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();

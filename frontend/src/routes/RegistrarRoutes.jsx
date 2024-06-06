@@ -1,5 +1,6 @@
 import React from 'react';
-import { Route, Redirect } from 'react-router-dom';
+import { Route } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
 
 const RegistrarRoutes = ({ component: Component, ...rest }) => {
@@ -7,13 +8,7 @@ const RegistrarRoutes = ({ component: Component, ...rest }) => {
   return (
     <Route
       {...rest}
-      render={props =>
-        user && user.role === 'registrar' ? (
-          <Component {...props} />
-        ) : (
-          <Redirect to="/login" />
-        )
-      }
+      element={user && user.role === 'registrar' ? <Component /> : <Navigate to="/login" />}
     />
   );
 };
