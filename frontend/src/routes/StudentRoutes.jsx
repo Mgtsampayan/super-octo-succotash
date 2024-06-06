@@ -1,17 +1,20 @@
-import { Route, Routes } from 'react-router-dom';
-import StudentDashboard from '../pages/StudentDashboard';
-import RequestDocumentPage from '../pages/RequestDocumentPage';
-import ProfilePage from '../pages/ProfilePage';
-import NotificationPage from '../pages/NotificationPage';
+import React from 'react';
+import { Route, Redirect } from 'react-router-dom';
+import useAuth from '../hooks/useAuth';
 
-const StudentRoutes = () => {
+const StudentRoutes = ({ component: Component, ...rest }) => {
+  const { user } = useAuth();
   return (
-    <Routes>
-      <Route path="/dashboard" element={<StudentDashboard />} />
-      <Route path="/request-document" element={<RequestDocumentPage />} />
-      <Route path="/profile" element={<ProfilePage />} />
-      <Route path="/notifications" element={<NotificationPage />} />
-    </Routes>
+    <Route
+      {...rest}
+      render={props =>
+        user && user.role === 'student' ? (
+          <Component {...props} />
+        ) : (
+          <Redirect to="/login" />
+        )
+      }
+    />
   );
 };
 
