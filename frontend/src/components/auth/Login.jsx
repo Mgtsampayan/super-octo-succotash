@@ -40,42 +40,48 @@
 
 
 
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import Button from '../common/Button';
+import authService from '../../services/authService';
 import Input from '../common/Input';
-import './Auth.css';
+import Button from '../common/Button';
 
 const Login = () => {
-  const [studentCode, setStudentCode] = useState('');
+  const [studentcode, setStudentcode] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
   const history = useHistory();
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    // Add your login logic here
-    // On success:
-    history.push('/dashboard');
+    try {
+      const user = await authService.login(studentcode, password);
+      // Save user to context or state
+      history.push('/student-dashboard');
+    } catch (err) {
+      setError(err.message);
+    }
   };
 
   return (
-    <div className="auth-container">
-      <h2>Login</h2>
+    <div>
+      <h1>Login</h1>
       <form onSubmit={handleLogin}>
-        <Input 
-          type="text" 
-          value={studentCode} 
-          onChange={(e) => setStudentCode(e.target.value)} 
-          placeholder="Student Code" 
+        <Input
+          type="text"
+          value={studentcode}
+          onChange={(e) => setStudentcode(e.target.value)}
+          placeholder="Student Code"
         />
-        <Input 
-          type="password" 
-          value={password} 
-          onChange={(e) => setPassword(e.target.value)} 
-          placeholder="Password" 
+        <Input
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          placeholder="Password"
         />
         <Button type="submit">Login</Button>
       </form>
+      {error && <p>{error}</p>}
     </div>
   );
 };

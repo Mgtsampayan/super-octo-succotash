@@ -1,40 +1,32 @@
 import React, { createContext, useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import PropType from 'prop-types'
-import { login, logout, getCurrentUser } from '../services/authService';
+import { getCurrentUser, login, logout } from '../services/authService';
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-    const [user, setUser] = useState(null);
-    const navigate = useNavigate();
+  const [user, setUser] = useState(null);
 
-    useEffect(() => {
-        const user = getCurrentUser();
-        setUser(user);
-    }, []);
-
-    const handleLogin = async (email, password) => {
-        const user = await login(email, password);
-        setUser(user);
-        navigate('/dashboard');
+  useEffect(() => {
+    const fetchUser = async () => {
+      const userData = await getCurrentUser();
+      setUser(userData);
     };
+    fetchUser();
+  }, []);
 
-    const handleLogout = () => {
-        logout();
-        setUser(null);
-        navigate('/login');
-    };
+  const loginUser = async (credentials) => {
+    const userData = await login(credentials);
+    setUser(userData);
+  };
 
-    return (
-        <AuthContext.Provider value={{ user, handleLogin, handleLogout }}>
-            {children}
-        </AuthContext.Provider>
-    );
+  const logoutUser = async () => {
+    await logout();
+    setUser(null);
+  };
+
+  return (
+    <AuthContext.Provider value={{ user, loginUser, logoutUser }}>
+      {children}
+    </AuthContext.Provider>
+  );
 };
-
-AuthProvider.propTypes = {
-    children: PropType.node.isRequired,
-};
-
-export default AuthProvider;

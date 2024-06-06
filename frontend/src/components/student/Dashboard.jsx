@@ -1,5 +1,6 @@
-import Navbar from '../components/common/Navbar';
-import Dashboard from '../components/student/Dashboard';
+import React from 'react';
+import Navbar from '../common/Navbar';
+// import Dashboard from '../components/student/Dashboard'; if applicable import it
 
 const StudentDashboard = () => {
   return (

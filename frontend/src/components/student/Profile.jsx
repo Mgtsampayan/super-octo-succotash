@@ -1,9 +1,18 @@
-import React from 'react'
+import React, { useContext } from 'react';
+import { AuthContext } from '../../context/AuthContext';
+import './Student.css';
 
 const Profile = () => {
-  return (
-    <div>Profile</div>
-  )
-}
+  const { authData } = useContext(AuthContext);
 
-export default Profile
+  return (
+    <div className="profile">
+      <h2>Profile</h2>
+      <p>Name: {authData?.fname} {authData?.lname}</p>
+      <p>Email: {authData?.email1}</p>
+      {/* Add more profile details here */}
+    </div>
+  );
+};
+
+export default Profile;

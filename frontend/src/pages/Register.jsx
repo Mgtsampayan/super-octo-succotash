@@ -1,24 +1,16 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import useAuth from '../hooks/useAuth';
 import Navbar from '../components/common/Navbar';
 import Input from '../components/common/Input';
 import Button from '../components/common/Button';
 
-const Login = () => {
+const Register = () => {
   const [studentCode, setStudentCode] = useState('');
   const [password, setPassword] = useState('');
-  const { loginUser } = useAuth();
-  const history = useHistory();
+  const [confirmPassword, setConfirmPassword] = useState('');
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    try {
-      await loginUser({ studentCode, password });
-      history.push('/dashboard');
-    } catch (error) {
-      console.error('Login failed', error);
-    }
+    // Implement registration logic
   };
 
   return (
@@ -37,10 +29,16 @@ const Login = () => {
           onChange={(e) => setPassword(e.target.value)}
           placeholder="Password"
         />
-        <Button type="submit">Login</Button>
+        <Input
+          type="password"
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
+          placeholder="Confirm Password"
+        />
+        <Button type="submit">Register</Button>
       </form>
     </div>
   );
 };
 
-export default Login;
+export default Register;

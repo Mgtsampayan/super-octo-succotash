@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Navbar from './components/common/Navbar';
 import Home from './pages/Home';
 import Login from './pages/Login';
@@ -9,7 +9,7 @@ import RegistrarDashboard from './pages/RegistrarDashboard';
 import CashierDashboard from './pages/CashierDashboard';
 import FacultyDashboard from './pages/FacultyDashboard';
 import NotFound from './pages/NotFound';
-import PrivateRoute from './routes/PrivateRoute';
+import PrivateRoute from './routes/PrivateRoutes';
 import StudentRoutes from './routes/StudentRoutes';
 import RegistrarRoutes from './routes/RegistrarRoutes';
 import CashierRoutes from './routes/CashierRoutes';
@@ -28,7 +28,7 @@ const App = () => {
             <div>
               <Navbar />
               <div className="container">
-                <Switch>
+                <Routes>
                   <Route exact path="/" component={Home} />
                   <Route path="/login" component={Login} />
                   <Route path="/register" component={Register} />
@@ -37,7 +37,7 @@ const App = () => {
                   <PrivateRoute path="/cashier" component={CashierRoutes} />
                   <PrivateRoute path="/faculty" component={FacultyRoutes} />
                   <Route component={NotFound} />
-                </Switch>
+                </Routes>
               </div>
             </div>
           </Router>

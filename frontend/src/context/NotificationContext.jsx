@@ -1,9 +1,22 @@
-import React from 'react'
+import React, { createContext, useState, useEffect } from 'react';
+import { fetchNotifications } from '../services/notificationService';
 
-const NotificationContext = () => {
+export const NotificationContext = createContext();
+
+export const NotificationProvider = ({ children }) => {
+  const [notifications, setNotifications] = useState([]);
+
+  useEffect(() => {
+    const loadNotifications = async () => {
+      const notificationsData = await fetchNotifications();
+      setNotifications(notificationsData);
+    };
+    loadNotifications();
+  }, []);
+
   return (
-    <div>NotificationContext</div>
-  )
-}
-
-export default NotificationContext
+    <NotificationContext.Provider value={{ notifications }}>
+      {children}
+    </NotificationContext.Provider>
+  );
+};

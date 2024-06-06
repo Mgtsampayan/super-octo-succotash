@@ -1,13 +1,14 @@
+import React from 'react';
 import Navbar from '../components/common/Navbar';
-import Dashboard from '../components/cashier/Dashboard';
 
-const StudentDashboard = () => {
+const CashierDashboard = () => {
   return (
-    <div className="student-dashboard">
+    <div>
       <Navbar />
-      <Dashboard />
+      <h1>Cashier Dashboard</h1>
+      {/* Cashier specific content */}
     </div>
   );
 };
 
-export default StudentDashboard;
+export default CashierDashboard;

@@ -9,7 +9,7 @@
     "mysql2": "^3.10.0",
     "nodemon": "^3.1.3"
   },
-  "name": "registraroffices",
+  "name": "rats-portal",
   "version": "1.0.0",
   "description": "ADRTS",
   "main": "server.js",
