@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'eact';
 import './Cashier.css';
 
 const PaymentVerification = () => {
@@ -10,6 +10,18 @@ const PaymentVerification = () => {
 
   const handleVerify = (paymentId) => {
     // Add payment verification logic here
+    const verifyPayment = async (paymentId) => {
+      const response = await fetch(`/api/verify-payment/${paymentId}`);
+      const data = await response.json();
+      return data;
+    };
+
+    verifyPayment(paymentId).then((verifiedPayment) => {
+      const updatedPayments = payments.map((payment) =>
+        payment.id === paymentId? verifiedPayment : payment
+      );
+      setPayments(updatedPayments);
+    });
   };
 
   return (

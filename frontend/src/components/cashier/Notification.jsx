@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { fetchNotifications } from '../../services/notificationService';
 import './Cashier.css';
 

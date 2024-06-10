@@ -1,19 +1,21 @@
-import React, { useEffect, useState } from 'react';
-import './Student.css';
+import { useEffect, useContext } from 'react';
+import { RequestContext } from '../../context/RequestContext';
 
 const RequestStatus = () => {
-    const [requests, setRequests] = useState([]);
+    const { requests, getRequests } = useContext(RequestContext);
 
     useEffect(() => {
-        // Fetch request status from the server
-    }, []);
+        getRequests();
+    }, [getRequests]); // Pag mali pwede paki tanggal
 
     return (
-        <div className="request-status">
-            <h2>Request Status</h2>
+        <div>
+            <h1>Request Status</h1>
             <ul>
                 {requests.map((request) => (
-                    <li key={request.id}>{request.status}</li>
+                    <li key={request.id}>
+                        {request.documentType}: {request.status}
+                    </li>
                 ))}
             </ul>
         </div>

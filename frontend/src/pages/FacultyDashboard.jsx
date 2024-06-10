@@ -1,5 +1,5 @@
-import React from 'react';
-import Navbar from '../components/common/Navbar';
+// import React from 'react';
+// import Navbar from '../components/common/Navbar';
 
 const FacultyDashboard = () => {
   return (

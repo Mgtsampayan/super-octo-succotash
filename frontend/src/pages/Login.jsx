@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
-import Navbar from '../components/common/Navbar';
+// import Navbar from '../components/common/Navbar';
 import Input from '../components/common/Input';
 import Button from '../components/common/Button';
 

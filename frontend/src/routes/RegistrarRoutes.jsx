@@ -1,6 +1,5 @@
-import React from 'react';
-import { Route } from 'react-router-dom';
-import { Navigate } from 'react-router-dom';
+import PropType from 'prop-types';
+import { Route, Navigate } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
 
 const RegistrarRoutes = ({ component: Component, ...rest }) => {
@@ -11,6 +10,10 @@ const RegistrarRoutes = ({ component: Component, ...rest }) => {
       element={user && user.role === 'registrar' ? <Component /> : <Navigate to="/login" />}
     />
   );
+};
+
+RegistrarRoutes.propTypes = {
+  component: PropType.elementType.isRequired,
 };
 
 export default RegistrarRoutes;

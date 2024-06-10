@@ -1,38 +1,13 @@
 import api from './api';
 
-const login = async (studentcode, password) => {
-  try {
-    const response = await api.post('/auth/login', { studentcode, password });
-    return response.data;
-  } catch (error) {
-    throw new Error(error.response?.data?.message || 'Login failed');
-  }
+export const loginService = (credentials) => {
+  return api.post('/auth/login', credentials);
 };
 
-const register = async (userData) => {
-  try {
-    const response = await api.post('/auth/register', userData);
-    return response.data;
-  } catch (error) {
-    throw new Error(error.response?.data?.message || 'Registration failed');
-  }
+export const registerService = (credentials) => {
+  return api.post('/auth/register', credentials);
 };
 
-const logout = async () => {
-  try {
-    await api.post('/auth/logout');
-  } catch (error) {
-    throw new Error(error.response?.data?.message || 'Logout failed');
-  }
+export const logoutService = () => {
+  return api.post('/auth/logout');
 };
-
-const getCurrentUser = async () => {
-  try {
-    const response = await api.get('/auth/current-user');
-    return response.data;
-  } catch (error) {
-    throw new Error(error.response?.data?.message || 'Logout failed');
-  }
-};
-
-export { login, register, logout, getCurrentUser };

@@ -1,24 +1,24 @@
-import PropType from 'prop-types'
-import './Input.css';
+import PropTypes from 'prop-types';
 
-const Input = ({ type, placeholder, value, onChange, className = '' }) => {
-    return (
-        <input
-        className={`input ${className}`}
-        type={type}
-        value={value}
-        onChange={onChange}
-        placeholder={placeholder}
-        />
-    );
+const Input = ({ type, name, value, onChange, placeholder }) => {
+  return (
+    <input
+      type={type}
+      name={name}
+      value={value}
+      onChange={onChange}
+      placeholder={placeholder}
+      required
+    />
+  );
 };
 
 Input.propTypes = {
-    type: PropType.string,
-    placeholder: PropType.string,
-    value: PropType.string,
-    onChange: PropType.func,
-    className: PropType.string,
+  type: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  placeholder: PropTypes.string,
 };
 
 export default Input;

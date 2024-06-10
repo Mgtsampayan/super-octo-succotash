@@ -14,17 +14,27 @@
 
 // export default Navbar;
 
-
+import { useContext } from 'react';
+import { Link } from 'react-router-dom';
+import { AuthContext } from '../../context/AuthContext';
 import './Navbar.css';
 
 const Navbar = () => {
+  const { user, logout } = useContext(AuthContext);
+
   return (
     <nav className="navbar">
-      <div className="navbar-brand">Student Portal</div>
-      <div className="navbar-links">
-        <a href="/">Home</a>
-        <a href="/login">Login</a>
-      </div>
+      <Link to="/">Home</Link>
+      {user ? (
+        <>
+          <button onClick={logout}>Logout</button>
+        </>
+      ) : (
+        <>
+          <Link to="/login">Login</Link>
+          <Link to="/register">Register</Link>
+        </>
+      )}
     </nav>
   );
 };

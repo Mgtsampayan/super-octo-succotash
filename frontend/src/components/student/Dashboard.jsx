@@ -1,14 +1,14 @@
-import React from 'react';
-import Navbar from '../common/Navbar';
-// import Dashboard from '../components/student/Dashboard'; if applicable import it
+import { Link } from 'react-router-dom';
 
-const StudentDashboard = () => {
-  return (
-    <div className="student-dashboard">
-      <Navbar />
-      <Dashboard />
-    </div>
-  );
-};
+const Dashboard = () => (
+  <div>
+    <h1>Student Dashboard</h1>
+    <ul>
+      <li><Link to="/student/request">Request Document</Link></li>
+      <li><Link to="/student/request-status">Request Status</Link></li>
+      <li><Link to="/student/profile">Profile</Link></li>
+    </ul>
+  </div>
+);
 
-export default StudentDashboard;
+export default Dashboard;

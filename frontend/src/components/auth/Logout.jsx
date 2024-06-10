@@ -1,20 +1,10 @@
-import React, { useContext } from 'react';
-import { useHistory } from 'react-router-dom';
-import Button from '../common/Button';
+import { useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 
 const Logout = () => {
-    const { setAuthData } = useContext(AuthContext);
-    const history = useHistory();
+  const { logout } = useContext(AuthContext);
 
-    const handleLogout = () => {
-        setAuthData(null);
-        history.push('/');
-    };
-
-    return (
-        <Button onClick={handleLogout}>Logout</Button>
-    );
+  return <button onClick={logout}>Logout</button>;
 };
 
 export default Logout;

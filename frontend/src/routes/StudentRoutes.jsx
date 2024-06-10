@@ -1,16 +1,19 @@
-import React from 'react';
-import { Route } from 'react-router-dom';
-import { Navigate } from 'react-router-dom';
-import useAuth from '../hooks/useAuth';
+import { Route, Routes } from 'react-router-dom';
+import StudentDashboard from '../pages/StudentDashboard';
+import DocumentRequest from '../pages/DocumentRequest';
+import RequestStatusPage from '../pages/RequestStatus';
+import ProfilePage from '../pages/Profile';
+import PrivateRoute from './PrivateRoutes';
 
-const StudentRoutes = ({ component: Component, ...rest }) => {
-  const { user } = useAuth();
-  return (
-    <Route
-      {...rest}
-      element={user && user.role === 'student' ? <Component /> : <Navigate to="/login" />}
-    />
-  );
-};
+const StudentRoutes = () => (
+  <Routes>
+    <Route path="/" element={<PrivateRoute />}>
+      <Route path="student/dashboard" element={<StudentDashboard />} />
+      <Route path="student/request" element={<DocumentRequest />} />
+      <Route path="student/request-status" element={<RequestStatusPage />} />
+      <Route path="student/profile" element={<ProfilePage />} />
+    </Route>
+  </Routes>
+);
 
 export default StudentRoutes;

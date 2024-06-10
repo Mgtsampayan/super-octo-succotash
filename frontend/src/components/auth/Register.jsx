@@ -1,88 +1,54 @@
-// import { useState, useContext } from 'react';
-// import { AuthContext } from '../../context/AuthContext';
-// import Input from '../common/Input';
-// import Button from '../common/Button';
-// import './Register.css';
-
-// const Register = () => {
-//     const { register } = useContext(AuthContext);
-//     const [email, setEmail] = useState('');
-//     const [password, setPassword] = useState('');
-
-//     const handleSubmit = async (e) => {
-//         e.preventDefault();
-//         await register(email, password);
-//     };
-
-//     return (
-//         <div className="register-form">
-//             <h2>Register</h2>
-//             <form onSubmit={handleSubmit}>
-//                 <Input
-//                     type="email"
-//                     placeholder="Email"
-//                     value={email}
-//                     onChange={(e) => setEmail(e.target.value)}
-//                 />
-//                 <Input
-//                     type="password"
-//                     placeholder="Password"
-//                     value={password}
-//                     onChange={(e) => setPassword(e.target.value)}
-//                 />
-//                 <Button type="submit">Register</Button>
-//             </form>
-//         </div>
-//     );
-// };
-
-// export default Register;
-
-import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import Button from '../common/Button';
+import { useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Input from '../common/Input';
-import './Auth.css';
+import Button from '../common/Button';
+import { AuthContext } from '../../context/AuthContext';
 
 const Register = () => {
-    const [studentCode, setStudentCode] = useState('');
-    const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
-    const history = useHistory();
+  const [credentials, setCredentials] = useState({ studentcode: '', password: '', email: '' });
+  const { register } = useContext(AuthContext);
+  const navigate = useNavigate();
 
-    const handleRegister = async (e) => {
-        e.preventDefault();
-        // Add your registration logic here
-        // On success:
-        history.push('/dashboard');
-    };
+  const handleChange = (e) => {
+    setCredentials({ ...credentials, [e.target.name]: e.target.value });
+  };
 
-    return (
-        <div className="auth-container">
-            <h2>Register</h2>
-            <form onSubmit={handleRegister}>
-                <Input
-                    type="text"
-                    value={studentCode}
-                    onChange={(e) => setStudentCode(e.target.value)}
-                    placeholder="Student Code"
-                />
-                <Input
-                    type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    placeholder="Password"
-                />
-                <Input
-                    type="password"
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                    placeholder="Confirm Password"
-                />
-                <Button type="submit">Register</Button>
-            </form>
-        </div>
-    );
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await register(credentials);
+      navigate('/home');
+    } catch (error) {
+      console.error('Registration failed', error);
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <Input
+        type="text"
+        name="studentcode"
+        value={credentials.studentcode}
+        onChange={handleChange}
+        placeholder="Student Code"
+      />
+      <Input
+        type="password"
+        name="password"
+        value={credentials.password}
+        onChange={handleChange}
+        placeholder="Password"
+      />
+      <Input
+        type="email"
+        name="email"
+        value={credentials.email}
+        onChange={handleChange}
+        placeholder="Email"
+      />
+      <Button type="submit">Register</Button>
+    </form>
+  );
 };
 
 export default Register;

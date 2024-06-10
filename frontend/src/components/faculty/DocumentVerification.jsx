@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import './Faculty.css';
 
 const DocumentVerification = () => {
@@ -6,10 +6,25 @@ const DocumentVerification = () => {
 
   useEffect(() => {
     // Fetch documents for verification
+    fetch('/api/documents')
+      .then((res) => res.json())
+      .then(data => setDocuments(data));
   }, []);
 
   const handleVerify = (documentId) => {
     // Add document verification logic here
+    fetch(`/api/documents/${documentId}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        verified: true,
+      }),
+    })
+      .then((res) => res.json())
+      .then(data => console.log(data))
+      .catch(error => console.error(error));
   };
 
   return (

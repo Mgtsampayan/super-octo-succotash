@@ -1,18 +1,20 @@
-import React, { useContext } from 'react';
+// import './Student.css';
+import { useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext';
-import './Student.css';
 
 const Profile = () => {
-  const { authData } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
 
   return (
-    <div className="profile">
-      <h2>Profile</h2>
-      <p>Name: {authData?.fname} {authData?.lname}</p>
-      <p>Email: {authData?.email1}</p>
-      {/* Add more profile details here */}
+    <div>
+      <h1>Profile</h1>
+      <p><strong>Name:</strong> {user.fname} {user.lname}</p>
+      <p><strong>Student Code:</strong> {user.studentcode}</p>
+      <p><strong>Email:</strong> {user.email1}</p>
+      {/* Add more fields as necessary */}
     </div>
   );
 };
 
 export default Profile;
+

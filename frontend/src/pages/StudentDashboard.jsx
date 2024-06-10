@@ -1,16 +1,9 @@
-import React from 'react';
-import Navbar from '../components/common/Navbar';
-import useAuth from '../hooks/useAuth';
+import Dashboard from '../components/student/Dashboard';
 
-const StudentDashboard = () => {
-  const { user } = useAuth();
-
-  return (
-    <div>
-      <h1>Student Dashboard</h1>
-      <p>Welcome, {user?.fname} {user?.lname}</p>
-    </div>
-  );
-};
+const StudentDashboard = () => (
+  <div>
+    <Dashboard />
+  </div>
+);
 
 export default StudentDashboard;
